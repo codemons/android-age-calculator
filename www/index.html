@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        -->
+		<meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+         <!--link rel="stylesheet" type="text/css" href="css/index.css"-->
+        <title>Age Calculator</title>
+		
+		<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		<link href="css/index.css" rel="stylesheet">
+    </head>
+    <body>
+		<!-- Static navbar -->
+		<nav class="navbar navbar-default navbar-static-top">
+		  <div class="container">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="#"><img alt="" title="Logo" src="img/logo.png"><span class="nav-title">Age Calculator</span></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+			  <ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home</a></li>
+				<li><a href="about.html">About</a></li>
+			  </ul>
+			</div><!--/.nav-collapse -->
+		  </div>
+		</nav>
+
+
+		<div class="container">
+
+		  <div class="row">
+			<div class="col-md-12">
+				 <div class="form-group">
+					<label for="dob-input">Pick your date of birth</label>
+					<div class="input-group date">
+					  <input type="text" class="form-control" id="dob-input"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+					</div>
+				</div>
+			</div>
+			
+		 </div>
+		 <div class="row">
+			<div class="col-md-12" id="output">
+				<p class="lead age hidden text-center"></p>
+				<div class="alert alert-success" role="alert">I'm waiting for you input..</div>
+				<img class="img-responsive hidden">
+			</div>
+		 </div>
+		 
+		</div> <!-- /container -->
+	
+        <!--script type="text/javascript" src="cordova.js"></script-->
+        <script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script src="js/bootstrap-datepicker.js"></script>
+		<script>
+			function getAge(dob){
+				var today = new Date();
+				var dob= new Date(dob);
+				
+				if((today - dob) < 0){
+					return null;
+				}
+				
+				var yearsDiff= today.getFullYear()-dob.getFullYear(),
+				monthsDiff= today.getMonth()-dob.getMonth(),
+				daysDiff= today.getDate()-dob.getDate();
+	
+				if(monthsDiff < 0 || (monthsDiff=== 0 && daysDiff<0))--yearsDiff;
+				if(monthsDiff<0) monthsDiff+= 12;
+				if(daysDiff<0){
+					var cloneDate = new Date(dob.getTime());
+					cloneDate.setMonth(dob.getMonth()+1, 0);
+					daysDiff= cloneDate.getDate()-dob.getDate()+today.getDate();
+					--monthsDiff;
+				}
+				
+				return {
+					days : daysDiff,
+					months : monthsDiff,
+					years : yearsDiff,
+					join : function(){
+						var age= [];
+						if(yearsDiff> 0) age.push(yearsDiff+ ' year'+(yearsDiff> 1? 's ':' '));
+						if(monthsDiff> 0) age.push(monthsDiff+ ' month'+(monthsDiff> 1? 's':''));
+						if(daysDiff> 0) age.push(daysDiff+ ' day'+(daysDiff> 1? 's':''));
+						if(age.length == 0)
+							return null;
+						if(age.length>1) age.splice(age.length-1,0,' and ');	
+						return age.join('');
+					}
+				};
+			}
+			$('.input-group.date').datepicker({
+					orientation: "top left",
+					format: "dd/mm/yyyy",autoclose: true,
+					todayHighlight: true
+				}).on('changeDate', function(e){
+					var input = $('#dob-input').val().split('/');
+					
+					var age = getAge(parseInt(input[1]) +'/'+ input[0] +'/'+ input[2]);
+					
+					var output = {
+						age: $('#output .age'),
+						alert: $('#output .alert'),
+						img: $('#output > img')
+					}
+					
+					if(age == null){
+						output.age.addClass('hidden');
+						output.img.removeClass('hidden').attr('src','img/0.png');
+						output.alert.text('WOW!! Its a wonder, you started using smart phone before even you were born. ARE YOU FROM OUTER SPACE???')
+							.attr('class','alert alert-warning');
+					}else if(age.join() == null){
+							output.alert.text('Happy Birthday!!! You have just born..')
+							.attr('class','alert alert-success');
+							output.img.addClass('hidden');
+					}else{
+						output.age.html('<strong>Age: '+age.join()+'</strong>').removeClass('hidden');
+						
+						if(age.years <= 3){
+							output.alert.text('CUTE!! You are just a child...')
+							.attr('class','alert alert-success');
+							output.img.removeClass('hidden').attr('src','img/1.png');	
+						}else if(age.years <= 16){
+							output.alert.text('FRIENDS!! Its play time...')
+							.attr('class','alert alert-success');
+							output.img.removeClass('hidden').attr('src','img/2.jpg');
+						}else if(age.years <= 23){
+							output.alert.text('FUN!! Greatest time of you life...')
+							.attr('class','alert alert-success');
+							output.img.removeClass('hidden').attr('src','img/3.jpg');
+						}else if(age.years <= 41){
+							output.alert.text('JOB!! WORK!! LIFE!! Its big time...')
+							.attr('class','alert alert-success');
+							output.img.removeClass('hidden').attr('src','img/4.jpg');
+						}else  if(age.years <= 160){
+							output.alert.text('MEMORIES!! Time to catch up some old memories...')
+							.attr('class','alert alert-success');
+							output.img.removeClass('hidden').attr('src','img/5.jpg');
+						}else{
+							output.alert.text('GHOSTLY!!!!! Are you still alive..')
+							.attr('class','alert alert-danger');
+							output.img.addClass('hidden');
+						}
+					}
+					
+				});
+			
+		</script>
+    </body>
+</html>
+
