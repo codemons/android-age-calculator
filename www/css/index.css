@@ -8,8 +8,8 @@ body {
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
 }
 
-.navbar-brand img{height: 45px;float:left}
-.navbar-brand .nav-title{margin:14px 0 0 15px;float:left;font-size:26px;}
+.navbar-brand img{height: 40px;margin-top:5px;float:left}
+.navbar-brand .nav-title{margin:10px 0 0 15px;float:left;}
 @media (min-width: 768px) {
  .navbar-brand {
 	padding: 5px 10px !important;
