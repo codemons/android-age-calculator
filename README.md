@@ -4,7 +4,7 @@ Age Calculator is a Hybrid mobile app developed using [Cordova]. [Boostrap] fram
 ### Version
 1.6.0
 
-### Installation
+### Dev Setup
 You need Cordova installed globally:
 ```sh
 $ npm i -g cordova
