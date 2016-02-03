@@ -28,7 +28,7 @@ License
 [MIT]
 
 
-**Free Software, Hell Yeah!**
+**Free Software, Hell Yeah!** :smile:
 
 [Cordova]: <https://cordova.apache.org/>
 [Boostrap]: <http://getbootstrap.com/>
