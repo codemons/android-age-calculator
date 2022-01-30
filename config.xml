@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="codemons.age-calculator" version="1.6.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.shivajivarma.AgeCalculator" version="1.6.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Age Calculator</name>
     <description>
         Age Calculator application.
     </description>
-    <author email="contac@shivajivarma.com" href="http://shivajivarma.com">
-        Shivaji Varma
+    <author email="contac@shivajivarma.com" href="https://shivajivarma.com">
+        Shivaji Varma Pusapati Venkata
     </author>
     <content src="index.html" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
